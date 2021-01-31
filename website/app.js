@@ -1,6 +1,6 @@
 /* Global Variables */
 let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip='
-let apiKey = '528a6a07f8296bf4cf8a299ead0dc29f'
+let apiKey = '528a6a07f8296bf4cf8a299ead0dc29f&units=imperial'
 
 
 // Create a new date instance dynamically with JS
@@ -12,12 +12,12 @@ document.getElementById('generate').addEventListener('click', performAction);
 
 function performAction(){
     const zipCode =  document.getElementById('zip').value;
-    const userResponse = document.getElementById('feelings').value;
+    const userFeeling = document.getElementById('feelings').value;
 
     getWeather(baseURL, zipCode, apiKey)
 
     .then(function(weatherData){
-        postData('http://localhost:8000/add', {temp:weatherData.main.temp, date:newDate, userResponse:userResponse})
+        postData('http://localhost:8000/add', {temp:weatherData.main.temp, date:newDate, feel:userFeeling})
         updateUI()
     })
 }
@@ -62,9 +62,9 @@ const updateUI = async ()=>{
     try{
         const recentEntry = await response.json()
 
-        document.getElementById('temp').innerHTML = recentEntry.slice(-1)[0].temp;
-        document.getElementById('date').innerHTML = recentEntry.slice(-1)[0].date;
-        document.getElementById('content').innerHTML = recentEntry.slice(-1)[0].userResponse;
+        document.getElementById('temp').innerHTML = "Temp: "+recentEntry.temp;
+        document.getElementById('date').innerHTML = "Date: "+recentEntry.date;
+        document.getElementById('content').innerHTML = "I Feel: "+recentEntry.feel;
 
     } catch(error){
         console.log('error', error)
