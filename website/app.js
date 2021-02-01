@@ -1,6 +1,6 @@
 /* Global Variables */
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip='
-let apiKey = '528a6a07f8296bf4cf8a299ead0dc29f&units=imperial'
+const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip='
+const apiKey = '528a6a07f8296bf4cf8a299ead0dc29f&units=imperial'
 
 
 // Create a new date instance dynamically with JS
@@ -17,9 +17,12 @@ function performAction(){
     getWeather(baseURL, zipCode, apiKey)
 
     .then(function(weatherData){
-        postData('http://localhost:8000/add', {temp:weatherData.main.temp, date:newDate, feel:userFeeling})
+      postData('http://localhost:8000/add', {temp:weatherData.main.temp, date:newDate, feel:userFeeling
+      }) 
+    
+      .then(function(){
         updateUI()
-    })
+      })})
 }
 
 /* Funtion to GET data from weather API */
